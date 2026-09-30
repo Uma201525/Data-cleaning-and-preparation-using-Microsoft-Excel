@@ -11,18 +11,41 @@ This repository documents the end-to-end data cleaning workflow applied to audit
 
 Dataset Issues Summary & Solutions
 
-Issue Identified                                         Affected Column(s)                                        Remediation Method / Function Applied  
 
-Inconsistent spacing & non-printable characters          PRODUCT NAME                                                   PROPER(TRIM(CLEAN(E2)))   
-Missing price values                                     PRICE                           Imputed using overall column average: IF(ISBLANK(E2),AVERAGE($E$2:$E$35), E2)
-Missing category classifications                         CATEGORY                                       Imputed with default label:IF(ISBLANK(F2), "UNKNOWN", F2)   Inconsistent casing                                      CATEGORY                                              Standardized to uppercase using UPPER(E2)  
-Typos in category names                                  CATEGORY                                              Batch corrected using Find & Replace (Ctrl + H)   
+
+Inconsistent spacing & non-printable characters          PRODUCT NAME  COLUMN                                                =PROPER(TRIM(CLEAN(E2)))   
+
+Missing price values         Affected Column PRICE                         Imputed using overall column average:  IF(ISBLANK(E2),AVERAGE($E$2:$E$35),E2)
+
+
+Missing category classifications                         CATEGORY                                       Imputed with default label:IF(ISBLANK(F2), "UNKNOWN", F2) 
+
+
+Inconsistent casing                                      CATEGORY                                              Standardized to uppercase using UPPER(E2)  
+
+
+Typos in category names                                  CATEGORY                                              Batch corrected using Find & Replace (Ctrl + H) 
+
+
+
 Duplicate records across full rows                       All Columns                                 Removed via Data Ribbon > Remove Duplicates > Select All  
-Combined manufacturing and country identifiers         PRODUCT ID                                      Parsed using string functions: Date extraction: LEFT(A2,6)                                                                                                               Country code extraction: RIGHT(A2, 2)   
-Uncombined brand and product names                     BRAND NAME, PRODUCT NAME                  Merged into single PRODUCT BRAND column: CONCATENATE(D2, " ", E2)   
-Currency format inconsistencies                            PRICE                                  Normalized numeric display via Home > Number Group > Currency   
+
+
+
+Combined manufacturing and country identifiers         PRODUCT ID                                      Parsed using string functions: Date extraction: LEFT(A2,6)
+Country code extraction: RIGHT(A2, 2)   
+
+
+Uncombined brand and product names                     BRAND NAME, PRODUCT NAME                  Merged into single PRODUCT BRAND column: CONCATENATE(D2, " ", E2) 
+
+
+
+Currency format inconsistencies                            PRICE                                  Normalized numeric display via Home > Number Group > Currency  
+
+
 
 Unstandardized date formats                            MANUFACTURING DATE                    Parsed to standard DD/MM/YYYY using DATEVALUE() or custom formatting  
+
 
 
 
